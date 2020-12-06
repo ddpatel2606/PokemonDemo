@@ -34,5 +34,5 @@
  - [CircularProgressView](https://github.com/rahatarmanahmed/CircularProgressView) - A polished and flexible CircleProgressView, fully customizable with animations.
 
 ## Images
-- [MainActivity](images/1.png)
-- [DetailActivity](images/2.png)
+- [MainActivity](https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/1.png)
+- [DetailActivity](https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/2.png)
