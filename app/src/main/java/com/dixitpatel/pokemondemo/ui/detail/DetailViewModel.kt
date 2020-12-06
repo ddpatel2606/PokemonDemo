@@ -79,7 +79,6 @@ class DetailViewModel @Inject constructor() : ViewModel()
                         response.body()?.let {
                             pokemonDetailApiResponse.value = APIRequestResponseHandler.success(it)
 
-                            Timber.e(response.body().toString())
                         }
                     } else {
                         pokemonDetailApiResponse.value = APIRequestResponseHandler.error(null,response.errorBody().toString())

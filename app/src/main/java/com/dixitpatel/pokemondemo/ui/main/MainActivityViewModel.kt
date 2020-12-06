@@ -40,8 +40,6 @@ class MainActivityViewModel @Inject constructor() : ViewModel()
                     if (response.isSuccessful) {
                         response.body()?.let {
                             pokemonApiResponse.value = APIRequestResponseHandler.success(it)
-
-                            Timber.e(response.body().toString())
                         }
                     } else {
                         pokemonApiResponse.value = APIRequestResponseHandler.error(null,response.errorBody().toString())
