@@ -59,7 +59,6 @@ class MainActivity : BaseActivity<MainActivityViewModel?>() {
         // Handle item selection
         return when (item.itemId) {
             R.id.action_search -> {
-
                 true
             }
             else -> super.onOptionsItemSelected(item)
