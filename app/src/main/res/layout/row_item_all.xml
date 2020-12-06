@@ -25,33 +25,34 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_160dp">
+                android:layout_height="@dimen/dimen_200dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivPokemonImage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:layout_height="@dimen/dimen_200dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_loading_place_holder"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvPokemonName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/lightgrey"
                     android:drawablePadding="@dimen/dimen_6dp"
                     android:fontFamily="@font/poppins_bold"
                     android:gravity="center|bottom"
                     android:lines="1"
-                    android:padding="@dimen/dimen_10dp"
+                    android:background="@drawable/rounded_white_transparent_background_top"
+                    android:text="@string/app_name"
+                    android:elevation="9dp"
+                    android:padding="@dimen/dimen_15dp"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_14sp"
+                    android:textSize="@dimen/text_size_15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

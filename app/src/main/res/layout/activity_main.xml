@@ -51,6 +51,7 @@
                     android:layout_height="match_parent"
                     android:paddingTop="@dimen/dimen_0dp"
                     app:elevation= "0dp"
+                    tools:listitem="@layout/row_item_all"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,11 +1,14 @@
 package com.dixitpatel.pokemondemo.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +22,7 @@ import com.dixitpatel.pokemondemo.model.Pokemon
 import com.dixitpatel.pokemondemo.network.ApiInterface
 import com.dixitpatel.pokemondemo.network.AuthStatus
 import com.dixitpatel.pokemondemo.ui.base.BaseActivity
+import com.dixitpatel.pokemondemo.ui.detail.DetailViewActivity
 import com.dixitpatel.pokemondemo.utils.Alerts
 import com.dixitpatel.pokemondemo.utils.CommonAdapter
 import com.dixitpatel.pokemondemo.utils.Utils
@@ -237,10 +241,23 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
                         binding.root.setOnClickListener {
 
-//                            val intent = Intent(requireActivity(), DetailViewActivity::class.java)
-//                            intent.putExtra(DetailViewActivity.SELCTION_TITLE, arrData[position]?.name)
-//                            intent.putExtra(DetailViewActivity.URL, arrData[position]?.url)
-//                            startActivity(intent)
+                            val intent = Intent(this@MainActivity, DetailViewActivity::class.java)
+
+                            ViewCompat.setTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage, arrData[position]?.name)
+
+                           intent.putExtra(DetailViewActivity.EXTRA_IMAGE_TRANSITION_NAME, ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage))
+
+                            val options: ActivityOptionsCompat =
+                                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                    this@MainActivity,
+                                    (holder.binding as RowItemAllBinding).ivPokemonImage,
+                                    ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage)!!
+                                )
+
+                            intent.putExtra(DetailViewActivity.SELECTION_TITLE  , arrData[position]?.name)
+                            intent.putExtra(DetailViewActivity.SELECTION_IMAGE_URL  , arrData[position]?.getImageUrl())
+                            startActivity(intent,options.toBundle())
+
 
                         }
                     } else {

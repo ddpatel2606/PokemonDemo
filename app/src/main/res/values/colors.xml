@@ -40,7 +40,7 @@
     <color name="stroke">#EBEBEB</color>
     <!--Sign Up ACtivity colors-->
     <color name="signUpinputText">#a8a8a8</color>
-    <color name="shadow_color">#EBEBEB</color>
+    <color name="shadow_color">#eeEBEBEB</color>
     <color name="shading">#D5D5D5</color>
     <color name="progress_color">#F4A39A</color>
     <color name="signUpText_color">#ffffff</color>
@@ -135,7 +135,7 @@
     <color name="login_lable_text">#83d7ff</color>
     <color name="login_sign_in_background">#2e3033</color>
     <color name="login_sign_in_background_pressed">#696969</color>
-    <color name="login_forget_text">#aaffffff</color>
+    <color name="login_forget_text">#bbffffff</color>
     <color name="signup_edittext_background">#f1f4f8</color>
     <color name="choice_background">#eceff4</color>
 

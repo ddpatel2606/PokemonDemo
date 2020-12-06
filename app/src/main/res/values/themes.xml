@@ -47,4 +47,16 @@
     <style name="AppModalStyleWhiteWoShadow" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_white_background_top</item>
     </style>
+
+    <style name="AppTheme.DayNight.NoActionBar" parent="@style/AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.CardView" parent="">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopLeft">30%</item>
+        <item name="cornerSizeTopRight">30%</item>
+    </style>
 </resources>
