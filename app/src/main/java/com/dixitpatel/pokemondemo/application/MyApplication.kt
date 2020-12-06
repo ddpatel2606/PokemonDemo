@@ -7,7 +7,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-/** MyApplication class that provides support for using dispatching Dagger injectors.  */
+/** MyApplication class that provides functionality of Dagger injectors.  */
 class MyApplication : DaggerApplication()
 {
     companion object {
@@ -20,6 +20,8 @@ class MyApplication : DaggerApplication()
         }
     }
 
+    /**  Bind Android Injectors with DaggerComponent
+     */
     override fun applicationInjector(): AndroidInjector<MyApplication?>? {
         return DaggerMainAppComponent.factory().create(this)
     }

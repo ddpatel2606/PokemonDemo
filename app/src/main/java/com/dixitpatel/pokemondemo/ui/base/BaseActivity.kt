@@ -8,12 +8,10 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.ViewModel
 import dagger.android.support.DaggerAppCompatActivity
 
-
+/**
+ *  Base Activity : all activity will extend this and pass their ViewModel object as Generic type.
+ */
 abstract class BaseActivity<T : ViewModel?> : DaggerAppCompatActivity() {
-
-    interface OnKeyboardVisibilityListener {
-        fun onVisibilityChanged(visible: Boolean)
-    }
 
     var me: BaseActivity<*>? = null
     private var viewModel: T? = null
@@ -22,13 +20,6 @@ abstract class BaseActivity<T : ViewModel?> : DaggerAppCompatActivity() {
      * @return view model instance
      */
     abstract fun getViewModel(): T
-
-    fun startActivity(viewStart: View?, transactionName: String?, intent: Intent?)
-    {
-        val options =
-            ActivityOptionsCompat.makeSceneTransitionAnimation(this, viewStart!!, transactionName!!)
-        ActivityCompat.startActivity(this, intent!!, options.toBundle())
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         try {

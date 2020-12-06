@@ -11,6 +11,9 @@ import android.view.View
 import com.dixitpatel.pokemondemo.R
 import kotlin.math.min
 
+/**
+ *  Circular Progress View
+ */
 @Suppress("DEPRECATION")
 class CircularProgressView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
 

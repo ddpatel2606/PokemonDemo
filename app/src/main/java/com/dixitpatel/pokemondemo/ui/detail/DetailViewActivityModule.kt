@@ -5,6 +5,9 @@ import com.dixitpatel.pokemondemo.utils.ViewModelProviderFactory
 import dagger.Module
 import dagger.Provides
 
+/**
+ *  Detail Activity Module : DetailActivity bind with ViewModel
+ */
 @Module
 class DetailViewActivityModule {
 

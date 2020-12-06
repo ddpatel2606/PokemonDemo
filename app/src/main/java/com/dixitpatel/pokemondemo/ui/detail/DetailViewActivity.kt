@@ -20,6 +20,10 @@ import com.squareup.picasso.Picasso
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ *  Detail Activity : Detail View of Pokemon
+ *  It will open after clicking on Pokemon Item
+ */
 class DetailViewActivity : BaseActivity<DetailViewModel>()
 {
     private lateinit var binding: ActivityDetailViewBinding
@@ -54,6 +58,7 @@ class DetailViewActivity : BaseActivity<DetailViewModel>()
 
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
+        // get data from intent
         intent.let {
             selectedPokemon = intent.getStringExtra(SELECTION_TITLE) as String
             selectedPokemonUrl = intent.getStringExtra(SELECTION_IMAGE_URL) as String
@@ -63,6 +68,7 @@ class DetailViewActivity : BaseActivity<DetailViewModel>()
             val imageTransitionName = intent.getStringExtra(EXTRA_IMAGE_TRANSITION_NAME)
             binding.ivPokemonHeader.transitionName = imageTransitionName
 
+            // Show Image With transition
              Picasso.get()
                     .load(selectedPokemonUrl)
                     .placeholder(R.drawable.icon_loading_place_holder)
@@ -87,6 +93,7 @@ class DetailViewActivity : BaseActivity<DetailViewModel>()
         fetchPokemonDetail()
     }
 
+    // Register Observer of fetching pokemon detail
     @SuppressLint("SetTextI18n")
     private fun registerObserver()
     {
@@ -136,6 +143,7 @@ class DetailViewActivity : BaseActivity<DetailViewModel>()
             })
     }
 
+    // fetching pokemon detail Api
     private fun fetchPokemonDetail()
     {
         if(Utils.isNetworkAvailable(this))
@@ -146,6 +154,7 @@ class DetailViewActivity : BaseActivity<DetailViewModel>()
         }
     }
 
+    // Bind ViewModel
     override fun getViewModel(): DetailViewModel {
         return models
     }

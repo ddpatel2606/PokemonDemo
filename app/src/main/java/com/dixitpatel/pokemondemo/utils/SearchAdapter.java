@@ -8,10 +8,12 @@ import com.dixitpatel.pokemondemo.model.Pokemon;
 
 import java.util.ArrayList;
 
+/**
+ *  Search adapter class for filterable interface.
+ */
 public abstract class SearchAdapter<T extends Pokemon> extends CommonAdapter<T> implements Filterable {
 
     private Filter filter;
-
     private ArrayList<T> mDataList;
     private ArrayList<T> mBackDataList;
 

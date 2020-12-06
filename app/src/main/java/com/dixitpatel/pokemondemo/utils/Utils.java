@@ -16,7 +16,9 @@ import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-
+/**
+ *  Common utils methods
+ */
 public class Utils {
 
     Context mConText;
@@ -25,10 +27,6 @@ public class Utils {
         mConText = context;
     }
 
-    public static float dpToPx(@NonNull Context context, @Dimension(unit = Dimension.DP) int dp) {
-        Resources r = context.getResources();
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
-    }
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -6,6 +6,9 @@ import com.dixitpatel.pokemondemo.utils.ViewModelProviderFactory
 import dagger.Module
 import dagger.Provides
 
+/**
+ *  Main Activity Module : MainActivity bind with ViewModel
+ */
 @Module
 class MainActivityModule {
 

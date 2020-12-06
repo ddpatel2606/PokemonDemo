@@ -43,6 +43,9 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ *  Main Activity : Pokemon Listing Activity
+ */
 class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
 
     lateinit var binding: ActivityMainBinding
@@ -73,7 +76,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         setSupportActionBar(binding.toolbar)
 
         binding.toolbar.title = getString(R.string.app_name)
-//        binding.viewModel = model
+        binding.viewModel = model
         binding.lifecycleOwner = this
 
         binding.progressBar.backgroundProgressBarColor = ContextCompat.getColor(this, R.color.transparent)
@@ -92,6 +95,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
     }
 
+    // Register Listing observer
     private fun registerObserver()
     {
         model.pokemonApiResult().observe(
@@ -166,6 +170,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         binding.swipeRefreshLayout.setOnRefreshListener(this)
     }
 
+    // fetch Pokemon Listing data
     private fun fetchPokemonList()
     {
         if(Utils.isNetworkAvailable(this))
@@ -175,8 +180,6 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
             Alerts.showSnackBar(this, getString(R.string.internet_not_available))
         }
     }
-
-
 
     override fun onBackPressed() {
         if (backPressedTime + 2500 > System.currentTimeMillis()) {
@@ -193,6 +196,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.activity_main_menu, menu)
 
+        // Inbuilt search bar with toolbar
         val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
         val searchView: SearchView? = searchItem?.actionView as SearchView
         searchView?.setOnQueryTextListener(this)
@@ -200,6 +204,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
         val button  = searchView?.findViewById<View>(R.id.search_close_btn)
 
+        // onclick of cancel button refresh all data
         button?.setOnClickListener {
 
                 //Find EditText view
@@ -225,6 +230,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
                 return true
             }
 
+            // onclick of back search button refresh all data
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 Timber.e("onMenuItemActionCollapse")
                 onRefresh()
@@ -245,6 +251,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         }
     }
 
+    // onRefresh call when swipe to refresh called.
     override fun onRefresh() {
         try {
             offset = 0
@@ -263,12 +270,14 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         }
     }
 
+    // item load completed
     private fun onItemsLoadComplete() {
         isRefresh = false
         binding.swipeRefreshLayout.isRefreshing = false
     }
 
 
+    // set Adapter of search
     private fun setAdapter(arrData: ArrayList<Pokemon?>) {
         mAdapter = object : SearchAdapter<Pokemon>(arrData) {
 
@@ -293,6 +302,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
                         binding.root.setOnClickListener {
 
+                            // Detail Activity will open when click on pokemon Item
                             val intent = Intent(this@MainActivity, DetailViewActivity::class.java)
                             ViewCompat.setTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage, arrData[position]?.url)
                             intent.putExtra(DetailViewActivity.EXTRA_IMAGE_TRANSITION_NAME, ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage))
@@ -319,6 +329,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
         binding.myRecyclerView.adapter = mAdapter
 
+        // Load more listener will fetch another data.
         mAdapter.setLoadMoreListener(object : CommonAdapter.OnLoadMoreListener{
             override fun onLoadMore() {
                 binding.myRecyclerView.post {
@@ -342,6 +353,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         return true
     }
 
+    // Search text with search bar.
     override fun onQueryTextChange(text: String?): Boolean {
 
         Timber.e("textSearch $text")

@@ -23,6 +23,7 @@ object Alerts {
 
     private var dialog: Dialog? = null
 
+    // Show Progress bar
     fun showProgressBar(context: Context?) {
         dismissProgressBar()
         try {
@@ -46,6 +47,7 @@ object Alerts {
         }
     }
 
+    // Dismiss Progress bar
     fun dismissProgressBar() {
         try {
             if (dialog != null && dialog!!.isShowing) {
@@ -57,6 +59,7 @@ object Alerts {
         }
     }
 
+    // Show BottomSheetDialog with yes no button.
     fun showBottomSheetSimpleConfirmationDialog(
         context: Activity, titleText: String?, subTitleText: String?,
         showOneButton: Boolean, negativeText: String?, positiveText: String?,
@@ -104,6 +107,7 @@ object Alerts {
     }
 
 
+    // Show Snack bar
     @Throws(Exception::class)
     fun showSnackBar(context: Activity, message: String?) {
         try {

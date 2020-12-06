@@ -25,10 +25,14 @@ import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ *  Detail Activity ViewModel : ViewModel
+ */
 class DetailViewModel @Inject constructor() : ViewModel()
 {
     companion object {
 
+        // Bind Pokemon name
         @JvmStatic
         @SuppressLint("SetTextI18n")
         @BindingAdapter("pokemon_name")
@@ -37,6 +41,7 @@ class DetailViewModel @Inject constructor() : ViewModel()
                 if (name.isNullOrEmpty()) "" else "${this.context.getString(R.string.pokemon_name)} $name"
         }
 
+        // Bind Pokemon Height
         @JvmStatic
         @SuppressLint("SetTextI18n")
         @BindingAdapter("pokemon_height")
@@ -45,6 +50,7 @@ class DetailViewModel @Inject constructor() : ViewModel()
                 if (height.isNullOrEmpty()) "" else "${this.context.getString(R.string.pokemon_height)} $height"
         }
 
+        // Bind Pokemon Weight
         @JvmStatic
         @SuppressLint("SetTextI18n")
         @BindingAdapter("pokemon_weight")
@@ -54,10 +60,12 @@ class DetailViewModel @Inject constructor() : ViewModel()
         }
     }
 
+
     private val pokemonDetailApiResponse = MutableLiveData<APIRequestResponseHandler<PokemonInfo?>>()
 
     fun pokemonDetailApiResult(): MutableLiveData<APIRequestResponseHandler<PokemonInfo?>> = pokemonDetailApiResponse
 
+    // Pokemon Detail Api Call
     fun pokemonDetailApiCall(name:String, apiInterface : ApiInterface)
     {
         pokemonDetailApiResponse.value = APIRequestResponseHandler.loading(null)
@@ -80,10 +88,8 @@ class DetailViewModel @Inject constructor() : ViewModel()
                 }
             } catch (e: HttpException) {
                 Timber.e("Exception ${e.message}")
-                pokemonDetailApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
             } catch (e: Throwable) {
                 Timber.e("Exception ${e.message}")
-                pokemonDetailApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
             }
         }
     }

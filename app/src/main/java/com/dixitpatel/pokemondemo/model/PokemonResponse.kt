@@ -3,7 +3,9 @@ package com.dixitpatel.pokemondemo.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
+/**
+ *  PokeMon Listing Result.
+ */
 data class PokemonResponse(
   @SerializedName("count")
   @Expose val count: Int,

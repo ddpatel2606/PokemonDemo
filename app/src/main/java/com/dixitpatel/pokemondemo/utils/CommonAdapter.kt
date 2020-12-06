@@ -8,7 +8,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import timber.log.Timber
 
-
+/**
+ *  Common Adapter class.
+ */
 abstract class CommonAdapter<T>(data: ArrayList<T?>) : RecyclerView.Adapter<CommonAdapter.CommonViewHolder>()
 {
 

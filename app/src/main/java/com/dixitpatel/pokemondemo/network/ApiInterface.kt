@@ -9,6 +9,9 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ *  All Network Calling Apis are define here with Coroutine function.
+ */
 interface ApiInterface {
 
     @GET("pokemon")

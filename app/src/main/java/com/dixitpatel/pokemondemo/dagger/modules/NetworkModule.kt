@@ -18,6 +18,9 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/**
+ *  All Network Modules are defined here so they initialized at compileTime.
+ */
 @Module
 class NetworkModule {
 

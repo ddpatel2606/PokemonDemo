@@ -16,13 +16,18 @@ import retrofit2.Response
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ *  Main Activity ViewModel : ViewModel
+ */
 class MainActivityViewModel @Inject constructor() : ViewModel()
 {
+    var isLoading = false
 
     private val pokemonApiResponse = MutableLiveData<APIRequestResponseHandler<PokemonResponse?>>()
 
     fun pokemonApiResult(): MutableLiveData<APIRequestResponseHandler<PokemonResponse?>> = pokemonApiResponse
 
+    // Pokemon listing API
     fun pokemonApiCall(page:Int, apiInterface : ApiInterface)
     {
         pokemonApiResponse.value = APIRequestResponseHandler.loading(null)
@@ -45,10 +50,9 @@ class MainActivityViewModel @Inject constructor() : ViewModel()
                 }
             } catch (e: HttpException) {
                 Timber.e("Exception ${e.message}")
-                ///pokemonApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
             } catch (e: Throwable) {
                 Timber.e("Exception ${e.message}")
-                //pokemonApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
+
             }
         }
     }

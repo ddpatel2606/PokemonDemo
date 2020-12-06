@@ -5,6 +5,9 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+/**
+ *  Pokemon object with name and URL.
+ */
 @Parcelize
 data class Pokemon(
   var page: Int = 0,

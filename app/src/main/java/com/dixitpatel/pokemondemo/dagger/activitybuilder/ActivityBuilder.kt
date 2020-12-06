@@ -8,8 +8,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 /**
- * This is Dagger Activity Builder Which ever activity will be used all activity should be mention
- * here as a Dagger Module.
+ * This is Dagger Activity Builder Which activities will be used in app must be add
+ * in Dagger Module.
  *
  */
 @Module

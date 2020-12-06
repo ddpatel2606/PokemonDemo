@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.dixitpatel.pokemondemo.ui.main.MainActivityViewModel" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
