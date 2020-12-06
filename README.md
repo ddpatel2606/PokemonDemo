@@ -1,6 +1,14 @@
 # PokemonDemo
  This is Pokemon Api demo App
  
+ - [Pokemon listing API](https://pokeapi.co/api/v2/pokemon?limit=20&offset=0)
+ - [Pokemon Detail API](https://pokeapi.co/api/v2/pokemon/bulbasaur)
+ - [Pokemon Image API](https://pokeres.bastionbot.org/images/pokemon/1.png)
+ 
+ ## Activities
+ - MainActivity - Listing pokemon
+ - DetailActivity - Details of selected Pokemon
+ 
  ## Tech stack & Open-source libraries
  - Minimum SDK level 23
  - [Kotlin](https://kotlinlang.org/) and [Java](https://www.java.com/en/) based, 
