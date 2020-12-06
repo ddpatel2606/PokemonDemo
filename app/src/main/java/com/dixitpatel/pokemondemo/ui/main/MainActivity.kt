@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MenuItem.OnActionExpandListener
 import android.view.View
+import android.widget.EditText
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
@@ -32,10 +35,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.core.util.Pair
+import androidx.recyclerview.widget.GridLayoutManager
+import com.dixitpatel.pokemondemo.utils.SearchAdapter
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.OnRefreshListener {
+class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener {
 
     lateinit var binding: ActivityMainBinding
 
@@ -56,7 +64,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
     private var isLoadMore = false
     private var isRefresh = false
 
-    lateinit var mAdapter: CommonAdapter<Pokemon>
+    lateinit var mAdapter: SearchAdapter<Pokemon>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +85,10 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
         registerObserver()
         fetchPokemonList()
+
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
     }
 
@@ -181,6 +193,45 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.activity_main_menu, menu)
 
+        val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
+        val searchView: SearchView? = searchItem?.actionView as SearchView
+        searchView?.setOnQueryTextListener(this)
+        searchView?.isIconified = false
+
+        val button  = searchView?.findViewById<View>(R.id.search_close_btn)
+
+        button?.setOnClickListener {
+
+                //Find EditText view
+                val etSearch = searchView.findViewById<View>(R.id.search_src_text) as EditText
+
+                //Clear the text from EditText view
+                etSearch.setText("")
+
+                //Clear query
+                searchView.setQuery("", false)
+                //Collapse the action view
+                searchView.onActionViewCollapsed()
+                //Collapse the search widget
+                searchItem.collapseActionView()
+
+                onRefresh()
+            }
+
+
+
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                Timber.e("onMenuItemActionCollapse")
+                onRefresh()
+                return true
+            }
+        })
+
         return true
     }
 
@@ -219,7 +270,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
 
     private fun setAdapter(arrData: ArrayList<Pokemon?>) {
-        mAdapter = object : CommonAdapter<Pokemon>(arrData) {
+        mAdapter = object : SearchAdapter<Pokemon>(arrData) {
 
 
             override fun getItemViewType(position: Int): Int {
@@ -265,6 +316,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
         binding.myRecyclerView.layoutManager = LinearLayoutManager(
             this, RecyclerView.VERTICAL, false)
+
         binding.myRecyclerView.adapter = mAdapter
 
         mAdapter.setLoadMoreListener(object : CommonAdapter.OnLoadMoreListener{
@@ -281,6 +333,24 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
             }
 
         })
+
+
+    }
+
+    override fun onQueryTextSubmit(text: String?): Boolean {
+
+        return true
+    }
+
+    override fun onQueryTextChange(text: String?): Boolean {
+
+        Timber.e("textSearch $text")
+        mAdapter.setLoadMoreListener(null)
+        if(text?.isNotEmpty()!!) {
+            mAdapter.filter.filter(text.toString().toLowerCase())
+        }
+
+        return true
     }
 
 }

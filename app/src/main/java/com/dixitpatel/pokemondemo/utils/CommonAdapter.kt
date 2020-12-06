@@ -2,6 +2,7 @@ package com.dixitpatel.pokemondemo.utils
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import timber.log.Timber
 
 abstract class CommonAdapter<T>(data: ArrayList<T?>) : RecyclerView.Adapter<CommonAdapter.CommonViewHolder>()
 {
+
     private var data = data
     private val TAG = CommonAdapter::class.java.simpleName
     private var moreDataAvailable = false
@@ -23,7 +25,8 @@ abstract class CommonAdapter<T>(data: ArrayList<T?>) : RecyclerView.Adapter<Comm
 
     open fun CommonAdapter(
         arrItem: ArrayList<T?>,
-        hasStableIds: Boolean) {
+        hasStableIds: Boolean
+    ) {
         data = arrItem
         setHasStableIds(hasStableIds)
     }

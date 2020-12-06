@@ -45,10 +45,10 @@ class MainActivityViewModel @Inject constructor() : ViewModel()
                 }
             } catch (e: HttpException) {
                 Timber.e("Exception ${e.message}")
-                pokemonApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
+                ///pokemonApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
             } catch (e: Throwable) {
                 Timber.e("Exception ${e.message}")
-                pokemonApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
+                //pokemonApiResponse.value = APIRequestResponseHandler.error(null,e.message.toString())
             }
         }
     }
