@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">PokemonDemo</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="double_press_exit">Press again to exit</string>
+    <string name="search_lbl">Search</string>
+    <string name="internet_not_available">Internet is not available</string>
+    <string name="no_list_found">No Data Found</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="okhttp_log_level" translatable="false">BODY</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RtlHardcoded,RtlSymmetry">
+
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <LinearLayout
+            style="?attr/bottomSheetStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_white_background_top"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_17sp"
+                tools:text="sdfsdf" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_14sp"
+                tools:text="sdsdf" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPositive"
+                    style="@style/DialogButtonStyle"
+                    android:text="@string/cancel"
+                    android:foreground="@drawable/ripple_effect"
+                    android:clickable="true"
+                    app:layout_constraintEnd_toStartOf="@+id/tvNegative"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="@dimen/text_size_14sp"
+                    android:textColor="@color/black"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvNegative"
+                    style="@style/DialogButtonStyle"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tvPositive"
+                    android:textSize="@dimen/text_size_14sp"
+                    android:foreground="@drawable/ripple_effect"
+                    android:clickable="true"
+                    android:textColor="@color/black"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

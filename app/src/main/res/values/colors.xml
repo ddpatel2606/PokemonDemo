@@ -1,10 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="splash_bg_color">#fff63746</color>
+
+    <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
+    <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
+    <!--selection controls.-->
+    <color name="color_primary">#f63746</color>
+    <color name="color_primary_light">#fff63746</color>
+    <color name="color_primary_variant">#ff0070eb</color>
+    <color name="color_primary_variant_light">#689F38</color>
+    <color name="color_secondary">#757575</color>
+    <color name="color_secondary_variant">#424242</color>
+
+    <!--colorBackground appears behind scrollable content and is used for the default window-->
+    <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
+    <!--and menus. colorError is used to indicate an error state for components such as-->
+    <!--text fields.-->
+    <color name="color_background">#ffffff</color>
+    <color name="color_surface">#ffffff</color>
+    <color name="color_error">#b00020</color>
+    <color name="facebook_btn_color">#3b5998</color>
+
+    <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
+    <!--on which they appear.-->
+    <color name="color_on_primary">#000000</color>
+    <color name="color_on_secondary">#000000</color>
+    <color name="color_on_background">#000000</color>
+    <color name="color_on_surface">#000000</color>
+    <color name="color_on_error">#ffffff</color>
+
+    <color name="tra_gray">#7e000000</color>
+
+
+    <color name="app_color_off">#013236</color>
+    <color name="grayTextColor">#ff444444</color>
+    <color name="grayLightTextColor">#939090</color>
+    <color name="grayLightTextColortrans">#55ffffff</color>
+
+    <color name="stroke">#EBEBEB</color>
+    <!--Sign Up ACtivity colors-->
+    <color name="signUpinputText">#a8a8a8</color>
+    <color name="shadow_color">#EBEBEB</color>
+    <color name="shading">#D5D5D5</color>
+    <color name="progress_color">#F4A39A</color>
+    <color name="signUpText_color">#ffffff</color>
+    <color name="fullName_color">#333333</color>
+    <color name="otp_color">#524f4f</color>
+    <color name="sign_up_edittext">#444444</color>
+
+    <color name="slider_divider">#cccccc</color>
+    <color name="lightGray">#d3d3d3</color>
+    <color name="white">#ffffff</color>
+    <color name="location_search_background">#e9e6e7</color>
+    <color name="grey_bg">#cccccc</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="darkGray">#a8a8a8</color>
+    <color name="blue">#00BFFF</color>
+
+    <!--  network bar     -->
+    <color name="red">#fb1e06</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_black">#4D000000</color>
+    <color name="transparent_black_dark">#90000000</color>
+
+    <!--home screen-->
+    <color name="home_grey_btn">#464646</color>
+    <color name="set_picup_location">#4c4c4c</color>
+
+    <!--   about fragment     -->
+    <color name="lightgrey">#A0A0A0</color>
+
+    <color name="lightestgrey">#FFA0A0A0</color>
+
+    <!-- invite fragment-->
+    <color name="background_color">#eef3f5</color>
+    <color name="grey">#606060</color>
+    <color name="address">#ff827f7f</color>
+    <color name="name">#ff232323</color>
+    <color name="backgroundcolor">#F5F5F5</color>
+    <color name="gray">#FFE6E6E6</color>
+
+    <!--profile fragment-->
+    <color name="text_color">#999999</color>
+    <color name="white_smoke">#F5F5F5</color>
+
+    <!-- orderfragment-->
+    <color name="order_bkgrnd">#fafafa</color>
+    <color name="order_divider">#d6d6d6</color>
+    <color name="order_name">#484848</color>
+    <color name="order_status">#2d95ed</color>
+    <color name="order_bid">#999999</color>
+
+    <!--shipment-->
+    <color name="shiping_text_color">#6f6f6f</color>
+    <color name="pickup_location_text_color">#6b7587</color>
+    <color name="shiping_background_color">#eeeeee</color>
+    <color name="shiping_heading_color">#b0b0b0</color>
+    <color name="shiping_heading_color2">#9a9a9a</color>
+
+    <color name="green">#008000</color>
+
+    <color name="grey_logo_subheadinga9a9a9">#a9a9a9</color>
+    <color name="light_shadow">#4d4d4d</color>
+    <color name="color8d8f8e">#8d8f8e</color>
+    <color name="SignInbuttonGradStart12cca2">#12cca2</color>
+    <color name="color4d4d4d">#4d4d4d</color>
+    <color name="colorfafafa">#fafafa</color>
+    <color name="colorb5b5b5">#b5b5b5</color>
+    <color name="colorececec">#ececec</color>
+    <color name="color3c3c3c">#3c3c3c</color>
+    <color name="red_light">#66EC4449</color>
+
+    <color name="selectableItemBackground">#d6d5d5</color>
+    <color name="google">#db4437</color>
+    <color name="facebook">#3b5998</color>
+    <color name="hint">#C7C7CD</color>
+    <color name="yellow_light">#FFD08A13</color>
+    <color name="orange_light">#FFE77544</color>
+
+    <color name="light_background">#FAFAFA</color>
+    <color name="dark_background">#303030</color>
+
+    <color name="text_gray">#8C000000</color>
+    <color name="divider_gray">#AAe2e2e2</color>
+
+    <!-- New Design Pallete-->
+    <color name="viamepallete_50">#e5f0fe</color>
+    <color name="viamepallete_100">#bfd9fc</color>
+    <color name="viamepallete_500">#2a7ff6</color>
+    <color name="color_gray_66">#666666</color>
+    <color name="login_edittext_background">#77A0A0A0</color>
+    <color name="login_edittext_placeholder">#55FFFFFF</color>
+    <color name="login_edittext_background_light">#11FFFFFF</color>
+    <color name="login_lable_text">#83d7ff</color>
+    <color name="login_sign_in_background">#2e3033</color>
+    <color name="login_sign_in_background_pressed">#696969</color>
+    <color name="login_forget_text">#aaffffff</color>
+    <color name="signup_edittext_background">#f1f4f8</color>
+    <color name="choice_background">#eceff4</color>
+
+
+    <color name="signup_label_text">#6b7587</color>
+    <color name="signup_editext_select_btn">#e3e7ec</color>
+    <color name="mybooking_date_color">#7ef3ff</color>
+    <color name="mybooking_status_back_color">#408bf7</color>
+    <color name="adddrop_screen_divider">#ecf0f5</color>
+    <color name="addcard_labels">#6b7587</color>
+    <color name="livetrack_divider_address">#eaeef5</color>
+    <color name="loaddetail_divider">#2671dd</color>
+    <color name="expired_color_text">#ffdd53</color>
+    <color name="waze_background">#43D7F0</color>
+
+    <color name="black_overlay">#727272</color>
+    <color name="search_bar_background_color">#EBEBEB</color>
+    <color name="recycler_background">#ffefefef</color>
+
+    <color name="default_text_color">#3e3e3d</color>
+    <color name="default_text_color_checked">#ffffff</color>
+
+    <color name="default_segment_color">#f8f8f8</color>
+    <color name="default_segment_color_checked">#7F6A93</color>
+
+    <color name="default_ripple_color">#e4e4e4</color>
+    <color name="default_ripple_color_checked">#C695A4</color>
+
+    <color name="default_border_color">#e4e4e4</color>
+    <color name="google_btn_color">#2671dd</color>
 </resources>
