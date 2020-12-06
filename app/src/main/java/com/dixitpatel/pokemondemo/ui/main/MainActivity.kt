@@ -31,6 +31,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.core.util.Pair
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -64,7 +65,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         setSupportActionBar(binding.toolbar)
 
         binding.toolbar.title = getString(R.string.app_name)
-
+//        binding.viewModel = model
         binding.lifecycleOwner = this
 
         binding.progressBar.backgroundProgressBarColor = ContextCompat.getColor(this, R.color.transparent)
@@ -242,18 +243,10 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
                         binding.root.setOnClickListener {
 
                             val intent = Intent(this@MainActivity, DetailViewActivity::class.java)
-
-                            ViewCompat.setTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage, arrData[position]?.name)
-
-                           intent.putExtra(DetailViewActivity.EXTRA_IMAGE_TRANSITION_NAME, ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage))
-
-                            val options: ActivityOptionsCompat =
-                                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                    this@MainActivity,
-                                    (holder.binding as RowItemAllBinding).ivPokemonImage,
-                                    ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage)!!
-                                )
-
+                            ViewCompat.setTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage, arrData[position]?.url)
+                            intent.putExtra(DetailViewActivity.EXTRA_IMAGE_TRANSITION_NAME, ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage))
+                            val pair1 = Pair.create<View, String>((holder.binding as RowItemAllBinding).ivPokemonImage, ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage)!!)
+                            val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity, pair1)
                             intent.putExtra(DetailViewActivity.SELECTION_TITLE  , arrData[position]?.name)
                             intent.putExtra(DetailViewActivity.SELECTION_IMAGE_URL  , arrData[position]?.getImageUrl())
                             startActivity(intent,options.toBundle())

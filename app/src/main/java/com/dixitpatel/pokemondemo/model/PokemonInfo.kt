@@ -2,36 +2,27 @@ package com.dixitpatel.pokemondemo.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import kotlin.random.Random
 
 data class PokemonInfo(
   @SerializedName("id")
-  @Expose val id: Int,
+  @Expose val id: Int = 0,
   @SerializedName("name")
-  @Expose val name: String,
+  @Expose val name: String = "",
   @SerializedName("height")
-  @Expose val height: Int,
+  @Expose val height: Int = 0,
   @SerializedName("weight")
-  @Expose val weight: Int,
+  @Expose val weight: Int = 0,
   @SerializedName("base_experience")
-  @Expose val experience: Int,
+  @Expose val experience: Int = 0,
   @SerializedName("types")
   @Expose val types: List<TypeResponse>,
-  val hp: Int = Random.nextInt(maxHp),
-  val attack: Int = Random.nextInt(maxAttack),
-  val defense: Int = Random.nextInt(maxDefense),
-  val speed: Int = Random.nextInt(maxSpeed),
-  val exp: Int = Random.nextInt(maxExp)
+  @SerializedName("abilities")
+  @Expose val abilities: List<Abilities>
 ) {
 
   fun getIdString(): String = String.format("#%03d", id)
   fun getWeightString(): String = String.format("%.1f KG", weight.toFloat() / 10)
   fun getHeightString(): String = String.format("%.1f M", height.toFloat() / 10)
-  fun getHpString(): String = "$hp/$maxHp"
-  fun getAttackString(): String = "$attack/$maxAttack"
-  fun getDefenseString(): String = "$defense/$maxDefense"
-  fun getSpeedString(): String = "$speed/$maxSpeed"
-  fun getExpString(): String = "$exp/$maxExp"
 
   data class TypeResponse(
     @SerializedName("slot")
@@ -40,16 +31,20 @@ data class PokemonInfo(
     @Expose val type: Type
   )
 
+  data class Abilities(
+    @SerializedName("ability")
+    @Expose val ability: Ability,
+  )
+
+  data class Ability(
+    @SerializedName("name")
+    @Expose val name: String,
+    @SerializedName("url")
+    @Expose val url: String
+  )
+
   data class Type(
     @SerializedName("name")
     @Expose val name: String
   )
-
-  companion object {
-    const val maxHp = 300
-    const val maxAttack = 300
-    const val maxDefense = 300
-    const val maxSpeed = 300
-    const val maxExp = 1000
-  }
 }

@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="data"
+            type="com.dixitpatel.pokemondemo.model.PokemonInfo" />
+
+        <variable
+            name="viewModel"
+            type="com.dixitpatel.pokemondemo.ui.detail.DetailViewModel" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -72,6 +80,117 @@
                     />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPokemonName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingTop="@dimen/dimen_5dp"
+                    android:paddingStart="@dimen/dimen_5dp"
+                    android:paddingEnd="@dimen/dimen_5dp"
+                    android:textDirection="locale"
+                    app:pokemon_name="@{data.name}"
+                    android:textSize="@dimen/text_size_16sp"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPokemonWeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingTop="@dimen/dimen_5dp"
+                    android:paddingStart="@dimen/dimen_5dp"
+                    android:paddingEnd="@dimen/dimen_5dp"
+                    android:textDirection="locale"
+                    app:pokemon_weight="@{data.weightString}"
+                    android:textSize="@dimen/text_size_16sp"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPokemonName"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPokemonHeight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingTop="@dimen/dimen_5dp"
+                    android:paddingStart="@dimen/dimen_5dp"
+                    android:paddingEnd="@dimen/dimen_5dp"
+                    app:pokemon_height="@{data.heightString}"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/text_size_16sp"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPokemonWeight"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPokemonAbilities"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingTop="@dimen/dimen_5dp"
+                    android:paddingStart="@dimen/dimen_5dp"
+                    android:paddingEnd="@dimen/dimen_5dp"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/text_size_16sp"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPokemonHeight"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPokemonTypes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_medium"
+                    android:paddingTop="@dimen/dimen_5dp"
+                    android:paddingStart="@dimen/dimen_5dp"
+                    android:paddingEnd="@dimen/dimen_5dp"
+                    android:textDirection="locale"
+                    android:textSize="@dimen/text_size_16sp"
+                    android:layout_marginStart="@dimen/dimen_5dp"
+                    android:layout_marginTop="@dimen/dimen_6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPokemonAbilities"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
 
