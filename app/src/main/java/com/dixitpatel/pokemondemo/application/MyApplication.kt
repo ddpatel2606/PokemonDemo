@@ -3,6 +3,8 @@ package com.dixitpatel.pokemondemo.application
 import androidx.appcompat.app.AppCompatDelegate
 import com.dixitpatel.pokemondemo.BuildConfig
 import com.dixitpatel.pokemondemo.dagger.components.DaggerMainAppComponent
+import com.dixitpatel.pokemondemo.pref.PrefEntity
+import com.dixitpatel.pokemondemo.pref.Preferences
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
@@ -34,6 +36,7 @@ class MyApplication : DaggerApplication()
             Timber.plant(Timber.DebugTree())
         }
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        Preferences.setPreference(PrefEntity.PREFERENCE_NIGHT_MODE, false)
 
     }
 }

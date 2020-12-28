@@ -6,11 +6,16 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_baseline_search_24"
-        android:iconTint="@color/color_primary_variant"
         android:title="@string/search_lbl"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"
         tools:targetApi="o" />
+
+    <item
+        android:id="@+id/action_list_grid"
+        android:icon="@drawable/ic_grid_on_24"
+        android:title="@string/List"
+        app:showAsAction="ifRoom" />
 
 
 </menu>

@@ -98,10 +98,8 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
 
     // Dagger Dependency Injection
-    //noinspection GradleDependency
-    implementation "com.google.dagger:dagger:2.25.2"
-    //noinspection GradleDependency
-    kapt "com.google.dagger:dagger-compiler:2.25.2"
+    implementation "com.google.dagger:dagger:2.30.1"
+    kapt "com.google.dagger:dagger-compiler:2.30.1"
     implementation "com.google.dagger:dagger-android:2.25.2"
     implementation "com.google.dagger:dagger-android-support:2.25.2"
     kapt "com.google.dagger:dagger-android-processor:2.25.2"

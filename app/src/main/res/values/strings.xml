@@ -12,4 +12,5 @@
     <string name="pokemon_height">Pokemon Height:</string>
     <string name="abilities">Abilities:</string>
     <string name="types">Types:</string>
+    <string name="List">list</string>
 </resources>

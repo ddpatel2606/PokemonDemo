@@ -1,18 +1,22 @@
 package com.dixitpatel.pokemondemo.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MenuItem.OnActionExpandListener
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,24 +28,22 @@ import com.dixitpatel.pokemondemo.databinding.RowItemAllBinding
 import com.dixitpatel.pokemondemo.model.Pokemon
 import com.dixitpatel.pokemondemo.network.ApiInterface
 import com.dixitpatel.pokemondemo.network.AuthStatus
+import com.dixitpatel.pokemondemo.pref.PrefEntity
+import com.dixitpatel.pokemondemo.pref.Preferences
 import com.dixitpatel.pokemondemo.ui.base.BaseActivity
 import com.dixitpatel.pokemondemo.ui.detail.DetailViewActivity
 import com.dixitpatel.pokemondemo.utils.Alerts
 import com.dixitpatel.pokemondemo.utils.CommonAdapter
+import com.dixitpatel.pokemondemo.utils.SearchAdapter
 import com.dixitpatel.pokemondemo.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import androidx.core.util.Pair
-import androidx.recyclerview.widget.GridLayoutManager
-import com.dixitpatel.pokemondemo.utils.SearchAdapter
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
+
 
 /**
  *  Main Activity : Pokemon Listing Activity
@@ -79,7 +81,10 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         binding.viewModel = model
         binding.lifecycleOwner = this
 
-        binding.progressBar.backgroundProgressBarColor = ContextCompat.getColor(this, R.color.transparent)
+        binding.progressBar.backgroundProgressBarColor = ContextCompat.getColor(
+            this,
+            R.color.transparent
+        )
         binding.progressBar.backgroundProgressBarWidth = 4F
         binding.progressBar.progressBarWidth = 4F
         binding.progressBar.progressBarColor = ContextCompat.getColor(this, R.color.color_primary)
@@ -105,7 +110,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
                 when (result.status) {
                     AuthStatus.LOADING -> {
 
-                        if(!isRefresh && !isLoadMore)
+                        if (!isRefresh && !isLoadMore)
                             binding.progressBar.visibility = View.VISIBLE
                         binding.tvNoResultTxt.visibility = View.GONE
                     }
@@ -187,7 +192,8 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
             ActivityCompat.finishAffinity(this)
         } else {
             Alerts.showSnackBar(
-                this@MainActivity, resources.getString(R.string.double_press_exit))
+                this@MainActivity, resources.getString(R.string.double_press_exit)
+            )
         }
         backPressedTime = System.currentTimeMillis()
     }
@@ -247,6 +253,27 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
             R.id.action_search -> {
                 true
             }
+            R.id.action_list_grid -> {
+
+                if (Preferences.getPreferenceBoolean(PrefEntity.IS_LIST_VIEW))
+                {
+                    binding.myRecyclerView.layoutManager = GridLayoutManager(
+                        this, 2, RecyclerView.VERTICAL, false
+                    )
+                    item.setIcon(R.drawable.ic_view_list_24)
+                    Preferences.setPreference(PrefEntity.IS_LIST_VIEW, false)
+                    runLayoutAnimation(binding.myRecyclerView)
+                } else {
+                    binding.myRecyclerView.layoutManager = LinearLayoutManager(
+                        this, RecyclerView.VERTICAL, false
+                    )
+                    Preferences.setPreference(PrefEntity.IS_LIST_VIEW, true)
+                    item.setIcon(R.drawable.ic_grid_on_24)
+                    runLayoutAnimation(binding.myRecyclerView)
+                }
+
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -276,6 +303,15 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         binding.swipeRefreshLayout.isRefreshing = false
     }
 
+    // Animate layout when LayoutManager Change
+    private fun runLayoutAnimation(recyclerView: RecyclerView) {
+        val context: Context = recyclerView.context
+        val controller: LayoutAnimationController =
+            AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation)
+        recyclerView.layoutAnimation = controller
+        recyclerView.adapter!!.notifyDataSetChanged()
+        recyclerView.scheduleLayoutAnimation()
+    }
 
     // set Adapter of search
     private fun setAdapter(arrData: ArrayList<Pokemon?>) {
@@ -304,13 +340,35 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
                             // Detail Activity will open when click on pokemon Item
                             val intent = Intent(this@MainActivity, DetailViewActivity::class.java)
-                            ViewCompat.setTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage, arrData[position]?.url)
-                            intent.putExtra(DetailViewActivity.EXTRA_IMAGE_TRANSITION_NAME, ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage))
-                            val pair1 = Pair.create<View, String>((holder.binding as RowItemAllBinding).ivPokemonImage, ViewCompat.getTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage)!!)
-                            val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity, pair1)
-                            intent.putExtra(DetailViewActivity.SELECTION_TITLE  , arrData[position]?.name)
-                            intent.putExtra(DetailViewActivity.SELECTION_IMAGE_URL  , arrData[position]?.getImageUrl())
-                            startActivity(intent,options.toBundle())
+                            ViewCompat.setTransitionName(
+                                (holder.binding as RowItemAllBinding).ivPokemonImage,
+                                arrData[position]?.url
+                            )
+                            intent.putExtra(
+                                DetailViewActivity.EXTRA_IMAGE_TRANSITION_NAME,
+                                ViewCompat.getTransitionName(
+                                    (holder.binding as RowItemAllBinding).ivPokemonImage
+                                )
+                            )
+                            val pair1 = Pair.create<View, String>(
+                                (holder.binding as RowItemAllBinding).ivPokemonImage,
+                                ViewCompat.getTransitionName(
+                                    (holder.binding as RowItemAllBinding).ivPokemonImage
+                                )!!
+                            )
+                            val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                this@MainActivity,
+                                pair1
+                            )
+                            intent.putExtra(
+                                DetailViewActivity.SELECTION_TITLE,
+                                arrData[position]?.name
+                            )
+                            intent.putExtra(
+                                DetailViewActivity.SELECTION_IMAGE_URL,
+                                arrData[position]?.getImageUrl()
+                            )
+                            startActivity(intent, options.toBundle())
 
 
                         }
@@ -325,12 +383,15 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         }
 
         binding.myRecyclerView.layoutManager = LinearLayoutManager(
-            this, RecyclerView.VERTICAL, false)
+            this, RecyclerView.VERTICAL, false
+        )
+        Preferences.setPreference(PrefEntity.IS_LIST_VIEW, true)
 
         binding.myRecyclerView.adapter = mAdapter
+        runLayoutAnimation(binding.myRecyclerView)
 
         // Load more listener will fetch another data.
-        mAdapter.setLoadMoreListener(object : CommonAdapter.OnLoadMoreListener{
+        mAdapter.setLoadMoreListener(object : CommonAdapter.OnLoadMoreListener {
             override fun onLoadMore() {
                 binding.myRecyclerView.post {
                     mAdapter.startLoadMore()
@@ -338,7 +399,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
                         isLoadMore = true
                         delay(500)
 
-                       fetchPokemonList()
+                        fetchPokemonList()
                     }
                 }
             }
