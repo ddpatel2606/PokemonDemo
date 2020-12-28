@@ -32,3 +32,8 @@
  - [Material-Components](https://github.com/material-components/material-components-android) - Material design components like ripple animation, cardView.
  - Custom Views
  - [CircularProgressView](https://github.com/rahatarmanahmed/CircularProgressView) - A polished and flexible CircleProgressView, fully customizable with animations.
+
+## Images
+- MainActivity <img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/1.png" width="24%"/>
+
+- DetailActivity <img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/2.png" width="24%"/>
