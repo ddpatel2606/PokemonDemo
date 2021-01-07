@@ -58,4 +58,4 @@
 
 
 ## Gif
-<img src="images/app.gif" width="350"/>
+<img src="images/app_video.mp4" width="350"/>
