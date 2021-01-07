@@ -38,16 +38,16 @@
 
 ## Images
 
-```MainActivity : List```
-
-
-<img src="images/1.png" width="350"/>
-
-
 ```MainActivity : Grid```
 
 
 <img src="images/2.png" width="350"/>
+
+
+```MainActivity : List```
+
+
+<img src="images/1.png" width="350"/>
 
 
 ```DetailActivity```
