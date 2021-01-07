@@ -39,6 +39,7 @@
 ## Images
 MainActivity 
 <img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/1.png" width="24%"/>
+<img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/2.png" width="24%"/>
 DetailActivity 
 <img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/3.png" width="24%"/>
 
