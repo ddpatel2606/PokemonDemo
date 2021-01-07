@@ -5,7 +5,12 @@
     <string name="internet_not_available">Internet is not available</string>
     <string name="no_list_found">No Data Found</string>
     <string name="something_went_wrong">Something went wrong</string>
-    <string name="okhttp_log_level" translatable="false">NONE</string>
+
+    <!-- BODY : Display Body of API
+         NONE : Noting will display
+     -->
+
+    <string name="okhttp_log_level" translatable="false">BODY</string>
     <string name="cancel">Cancel</string>
     <string name="pokemon_name">Pokemon Name:</string>
     <string name="pokemon_weight">Pokemon Weight:</string>

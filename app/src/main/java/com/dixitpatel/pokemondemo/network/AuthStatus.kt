@@ -3,8 +3,9 @@ package com.dixitpatel.pokemondemo.network
 /**
  *  Authentication status
  */
-enum class AuthStatus {
-        SUCCESS,
-        ERROR,
-        LOADING
+sealed class AuthStatus
+{
+        object SUCCESS : AuthStatus()
+        object ERROR : AuthStatus()
+        object LOADING : AuthStatus()
 }

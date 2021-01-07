@@ -24,6 +24,7 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
+    // Interceptors are used for displaying logs of API.
     @Provides
     @Singleton
     fun providesHttpLoggingInterceptor(context: Context): HttpLoggingInterceptor {
@@ -32,6 +33,7 @@ class NetworkModule {
         }
     }
 
+    // Log levels are used for display particular information.
     private fun getOkHttpLogLevel(level: String?): HttpLoggingInterceptor.Level {
         return when (level) {
             HttpLoggingInterceptor.Level.NONE.toString() -> HttpLoggingInterceptor.Level.NONE
@@ -42,6 +44,7 @@ class NetworkModule {
         }
     }
 
+    // OkHttpClient for Retrofit and Picasso
     @Singleton
     @Provides
     fun providesClient(cache: Cache?, loggingInterceptor: HttpLoggingInterceptor?): OkHttpClient {
@@ -54,6 +57,7 @@ class NetworkModule {
     }
 
 
+    // Okhttp Cache file.
     @Provides
     @Singleton
     fun file(app: Context): File {
@@ -62,18 +66,21 @@ class NetworkModule {
         return file
     }
 
+    // Okhttp Cache file size.
     @Provides
     @Singleton
     fun cache(file: File?): Cache {
         return Cache(file!!, 10 * 1000 * 1000) //10 MB
     }
 
+    // Okhttp Downloader.
     @Provides
     @Singleton
     fun okHttpDownloader(okHttpClient: OkHttpClient?): OkHttp3Downloader {
         return OkHttp3Downloader(okHttpClient)
     }
 
+    // Retrofit for Network call Attached with GSONConverterFactory
     @Singleton
     @Provides
     fun provideRetrofit(cache: Cache?, loggingInterceptor: HttpLoggingInterceptor?): Retrofit {
@@ -85,6 +92,7 @@ class NetworkModule {
             .build()
     }
 
+    // Retrofit interface for all API call.
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiInterface {

@@ -22,11 +22,14 @@
    
  - Architecture
    - MVVM Architecture (Model View ViewModel - DataBinding)
+   - Repository Design Pattern
   
  - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs and paging network data.
  - [HttpInterceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor) - An OkHttp interceptor which logs HTTP request and response data.
  - [Gson](https://github.com/google/gson) - A modern JSON library for Kotlin and Java.
  - [Picasso](https://github.com/square/picasso) - loading images.
+ - [Picasso Palette](https://github.com/florent37/PicassoPalette) - color background palette.
+ - [ShimmerView](https://github.com/facebook/shimmer-android) - Shimmer Loading View.
  - [SwipeToRefreshLayout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout) - implement swipe to refresh layout.
  - [Timber](https://github.com/JakeWharton/timber) - logging.
  - [Material-Components](https://github.com/material-components/material-components-android) - Material design components like ripple animation, cardView.
@@ -37,3 +40,6 @@
 - MainActivity <img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/1.png" width="24%"/>
 
 - DetailActivity <img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/2.png" width="24%"/>
+
+## Gif
+<img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/app.gif" width="24%"/>

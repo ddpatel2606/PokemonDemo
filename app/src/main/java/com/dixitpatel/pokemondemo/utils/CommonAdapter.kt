@@ -15,23 +15,9 @@ abstract class CommonAdapter<T>(data: ArrayList<T?>) : RecyclerView.Adapter<Comm
 {
 
     private var data = data
-    private val TAG = CommonAdapter::class.java.simpleName
     private var moreDataAvailable = false
     private var isLoading = false
     private var loadMoreListener: OnLoadMoreListener? = null
-
-    open fun CommonAdapter(arrItem: ArrayList<T?>) {
-        data = arrItem
-        setHasStableIds(false)
-    }
-
-    open fun CommonAdapter(
-        arrItem: ArrayList<T?>,
-        hasStableIds: Boolean
-    ) {
-        data = arrItem
-        setHasStableIds(hasStableIds)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonViewHolder {
 
@@ -50,8 +36,7 @@ abstract class CommonAdapter<T>(data: ArrayList<T?>) : RecyclerView.Adapter<Comm
                 isLoading = true
                 loadMoreListener!!.onLoadMore()
             }
-            onBind(holder, holder.adapterPosition)
-            onBind(holder, holder.adapterPosition, getItem(holder.adapterPosition))
+            onBindWithData(holder, holder.adapterPosition, getItem(holder.adapterPosition))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -175,8 +160,6 @@ abstract class CommonAdapter<T>(data: ArrayList<T?>) : RecyclerView.Adapter<Comm
     class CommonViewHolder(var binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    open fun onBind(holder: CommonViewHolder, position: Int, item: T?) {}
-
-    abstract fun onBind(holder: CommonViewHolder?, position: Int)
+    abstract fun onBindWithData(holder: CommonViewHolder, position: Int, item: T?)
 
 }

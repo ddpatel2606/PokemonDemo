@@ -1,6 +1,8 @@
 package com.dixitpatel.pokemondemo.ui.detail
 
 import androidx.lifecycle.ViewModelProvider
+import com.dixitpatel.pokemondemo.repository.DetailViewRepository
+import com.dixitpatel.pokemondemo.repository.Repository
 import com.dixitpatel.pokemondemo.utils.ViewModelProviderFactory
 import dagger.Module
 import dagger.Provides
@@ -12,12 +14,17 @@ import dagger.Provides
 class DetailViewActivityModule {
 
     @Provides
-    fun providesViewModel(): DetailViewModel {
-        return DetailViewModel()
+    fun providesViewModel(detailViewRepository: DetailViewRepository): DetailViewModel {
+        return DetailViewModel(detailViewRepository)
     }
 
     @Provides
     fun provideViewModelProvider(viewModel: DetailViewModel): ViewModelProvider.Factory {
         return ViewModelProviderFactory(viewModel)
+    }
+
+    @Provides
+    fun providesDetailViewRepository() : Repository {
+        return DetailViewRepository()
     }
 }

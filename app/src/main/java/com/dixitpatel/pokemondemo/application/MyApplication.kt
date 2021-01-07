@@ -9,8 +9,10 @@ import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-/** MyApplication class that provides functionality of Dagger injectors.  */
-class MyApplication : DaggerApplication()
+/**
+ * MyApplication class that provides functionality of Dagger injectors.
+ * */
+open class MyApplication : DaggerApplication()
 {
     companion object {
         @JvmStatic
@@ -22,7 +24,8 @@ class MyApplication : DaggerApplication()
         }
     }
 
-    /**  Bind Android Injectors with DaggerComponent
+    /**
+     * Bind Android Injectors with DaggerComponent
      */
     override fun applicationInjector(): AndroidInjector<MyApplication?>? {
         return DaggerMainAppComponent.factory().create(this)
@@ -32,9 +35,13 @@ class MyApplication : DaggerApplication()
         super.onCreate()
         instance = this
 
-        if (BuildConfig.DEBUG) {
+        // If the build is on debug mode from Android studio then Logcat printed otherwise not to display.
+        if (BuildConfig.DEBUG)
+        {
             Timber.plant(Timber.DebugTree())
         }
+
+        // App is Compatible with Night and Day mode.
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         Preferences.setPreference(PrefEntity.PREFERENCE_NIGHT_MODE, false)
 

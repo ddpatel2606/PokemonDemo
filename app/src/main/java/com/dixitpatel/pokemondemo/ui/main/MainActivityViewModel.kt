@@ -2,12 +2,12 @@ package com.dixitpatel.pokemondemo.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dixitpatel.pokemondemo.constant.PAGING_SIZE
-import com.dixitpatel.pokemondemo.model.Pokemon
 import com.dixitpatel.pokemondemo.model.PokemonResponse
 import com.dixitpatel.pokemondemo.network.APIRequestResponseHandler
 import com.dixitpatel.pokemondemo.network.ApiInterface
-import kotlinx.coroutines.CoroutineScope
+import com.dixitpatel.pokemondemo.repository.MainViewRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,39 +19,9 @@ import javax.inject.Inject
 /**
  *  Main Activity ViewModel : ViewModel
  */
-class MainActivityViewModel @Inject constructor() : ViewModel()
+class MainActivityViewModel @Inject constructor(val mainViewRepository: MainViewRepository) : ViewModel()
 {
     var isLoading = false
 
-    private val pokemonApiResponse = MutableLiveData<APIRequestResponseHandler<PokemonResponse?>>()
 
-    fun pokemonApiResult(): MutableLiveData<APIRequestResponseHandler<PokemonResponse?>> = pokemonApiResponse
-
-    // Pokemon listing API
-    fun pokemonApiCall(page:Int, apiInterface : ApiInterface)
-    {
-        pokemonApiResponse.value = APIRequestResponseHandler.loading(null)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response: Response<PokemonResponse> = apiInterface.fetchPokemonList(PAGING_SIZE,page)
-
-            try {
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            pokemonApiResponse.value = APIRequestResponseHandler.success(it)
-                        }
-                    } else {
-                        pokemonApiResponse.value = APIRequestResponseHandler.error(null,response.errorBody().toString())
-                        Timber.e(response.errorBody().toString())
-                    }
-                }
-            } catch (e: HttpException) {
-                Timber.e("Exception ${e.message}")
-            } catch (e: Throwable) {
-                Timber.e("Exception ${e.message}")
-
-            }
-        }
-    }
 }

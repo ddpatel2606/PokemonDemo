@@ -21,7 +21,7 @@ import javax.inject.Singleton
 interface MainAppComponent : AndroidInjector<MyApplication?>
 {
     @Component.Factory
-    abstract class Factory : AndroidInjector.Factory<MyApplication?> {}
+    abstract class Factory : AndroidInjector.Factory<MyApplication?>
 
     fun create(): MainAppComponent?
 }

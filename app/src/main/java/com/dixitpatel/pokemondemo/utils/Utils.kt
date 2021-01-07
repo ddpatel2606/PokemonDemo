@@ -1,87 +1,63 @@
-package com.dixitpatel.pokemondemo.utils;
+package com.dixitpatel.pokemondemo.utils
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.os.IBinder;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-
-import androidx.annotation.Dimension;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities
+import android.app.Activity
+import android.content.Context
+import android.os.IBinder
+import android.view.inputmethod.InputMethodManager
+import kotlin.jvm.JvmOverloads
+import android.widget.EditText
+import androidx.fragment.app.Fragment
+import java.lang.Exception
 
 /**
- *  Common utils methods
+ * Common utils methods
  */
-public class Utils {
+class Utils
+{
+    companion object {
 
-    Context mConText;
-
-    public Utils(Context context) {
-        mConText = context;
-    }
-
-
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        boolean isNetworkAvail = false;
-        try {
-            if (cm != null) {
-                final Network n = cm.getActiveNetwork();
-
-                if (n != null) {
-                    final NetworkCapabilities nc = cm.getNetworkCapabilities(n);
-
-                    isNetworkAvail = (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
-
-                    return isNetworkAvail;
-                }
+        fun isNetworkAvailable(context: Context): Boolean
+        {
+            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+            var isNetworkAvail = false
+            try {
+                val n = cm?.activeNetwork
+                    val nc = cm?.getNetworkCapabilities(n)
+                    isNetworkAvail = nc!!.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    return isNetworkAvail
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
+            return isNetworkAvail
         }
-        return false;
-    }
 
-
-    public static void hideKeyboard(Activity activity, int flags) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        View viewWithFocus = activity.getCurrentFocus();
-        IBinder windowToken = viewWithFocus != null ? viewWithFocus.getWindowToken() : null;
-
-        if (windowToken != null) {
-            imm.hideSoftInputFromWindow(windowToken, flags);
+        fun hideKeyboard(activity: Activity, flags: Int) {
+            val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val viewWithFocus = activity.currentFocus
+            val windowToken = viewWithFocus?.windowToken
+            if (windowToken != null) {
+                imm.hideSoftInputFromWindow(windowToken, flags)
+            }
         }
-    }
 
-
-    public static void hideKeyboard(Fragment fragment, int flags) {
-        Activity activity = fragment.getActivity();
-        if (activity != null) {
-            hideKeyboard(activity, flags);
+        @JvmOverloads
+        fun hideKeyboard(fragment: Fragment, flags: Int = InputMethodManager.HIDE_NOT_ALWAYS) {
+            val activity: Activity? = fragment.activity
+            if (activity != null) {
+                hideKeyboard(activity, flags)
+            }
         }
-    }
 
-    public static void hideKeyboard(Fragment fragment) {
-        hideKeyboard(fragment, InputMethodManager.HIDE_NOT_ALWAYS);
-    }
-
-    public static void showSoftKeyboard(Activity me, EditText edt) {
-        try {
-            InputMethodManager imm = (InputMethodManager) me.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(edt, InputMethodManager.SHOW_IMPLICIT);
-        } catch (Exception e) {
-            e.printStackTrace();
+        fun showSoftKeyboard(me: Activity, edt: EditText?) {
+            try {
+                val imm = me.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(edt, InputMethodManager.SHOW_IMPLICIT)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
-
-
 }

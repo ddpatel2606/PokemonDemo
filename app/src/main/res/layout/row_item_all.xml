@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="@dimen/dimen_4dp"
-            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/dimen_6dp"
             app:cardElevation="@dimen/dimen_4dp"
             android:clickable="true"
@@ -24,6 +23,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:id="@+id/ivCard"
                 android:layout_height="@dimen/dimen_200dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -32,7 +32,6 @@
                     android:layout_height="@dimen/dimen_200dp"
                     android:padding="@dimen/dimen_5dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/icon_loading_place_holder"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -46,8 +45,8 @@
                     android:fontFamily="@font/poppins_bold"
                     android:gravity="center|bottom"
                     android:lines="1"
+                    android:visibility="gone"
                     android:background="@drawable/rounded_white_transparent_background_top"
-                    android:text="@string/app_name"
                     android:elevation="9dp"
                     android:padding="@dimen/dimen_15dp"
                     android:textColor="@color/black"

@@ -1,7 +1,7 @@
 package com.dixitpatel.pokemondemo.network
 
 /**
- *  Api Request Handler with success,error,loading enum.
+ *  Api Request Handler with success,error,loading.
  */
 data class APIRequestResponseHandler<out T>(val status: AuthStatus, val data: T?, val message: String?) {
     companion object {

@@ -1,22 +1,16 @@
 package com.dixitpatel.pokemondemo.ui.detail
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dixitpatel.pokemondemo.R
-import com.dixitpatel.pokemondemo.constant.PAGING_SIZE
 import com.dixitpatel.pokemondemo.model.PokemonInfo
-import com.dixitpatel.pokemondemo.model.PokemonResponse
 import com.dixitpatel.pokemondemo.network.APIRequestResponseHandler
 import com.dixitpatel.pokemondemo.network.ApiInterface
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.CoroutineScope
+import com.dixitpatel.pokemondemo.repository.DetailViewRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,7 +22,7 @@ import javax.inject.Inject
 /**
  *  Detail Activity ViewModel : ViewModel
  */
-class DetailViewModel @Inject constructor() : ViewModel()
+class DetailViewModel @Inject constructor(val detailViewRepository: DetailViewRepository) : ViewModel()
 {
     companion object {
 
@@ -57,39 +51,6 @@ class DetailViewModel @Inject constructor() : ViewModel()
         fun TextView.setPokemonWeight(weight: String?) {
             this.text =
                 if (weight.isNullOrEmpty()) "" else "${this.context.getString(R.string.pokemon_weight)} $weight"
-        }
-    }
-
-
-    private val pokemonDetailApiResponse = MutableLiveData<APIRequestResponseHandler<PokemonInfo?>>()
-
-    fun pokemonDetailApiResult(): MutableLiveData<APIRequestResponseHandler<PokemonInfo?>> = pokemonDetailApiResponse
-
-    // Pokemon Detail Api Call
-    fun pokemonDetailApiCall(name:String, apiInterface : ApiInterface)
-    {
-        pokemonDetailApiResponse.value = APIRequestResponseHandler.loading(null)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response: Response<PokemonInfo> = apiInterface.fetchPokemonDetail(name)
-
-            try {
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            pokemonDetailApiResponse.value = APIRequestResponseHandler.success(it)
-
-                        }
-                    } else {
-                        pokemonDetailApiResponse.value = APIRequestResponseHandler.error(null,response.errorBody().toString())
-                        Timber.e(response.errorBody().toString())
-                    }
-                }
-            } catch (e: HttpException) {
-                Timber.e("Exception ${e.message}")
-            } catch (e: Throwable) {
-                Timber.e("Exception ${e.message}")
-            }
         }
     }
 
