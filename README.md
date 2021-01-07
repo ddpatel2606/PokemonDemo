@@ -37,12 +37,25 @@
  - [CircularProgressView](https://github.com/rahatarmanahmed/CircularProgressView) - A polished and flexible CircleProgressView, fully customizable with animations.
 
 ## Images
+
 ```MainActivity : List```
+
+
 <img src="images/1.png" width="350"/>
+
+
 ```MainActivity : Grid```
+
+
 <img src="images/2.png" width="350"/>
+
+
 ```DetailActivity```
+
+
 <img src="images/3.png" width="350"/>
+
+
 
 ## Gif
 <img src="images/app.gif" width="350"/>
