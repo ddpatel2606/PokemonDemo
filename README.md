@@ -37,12 +37,12 @@
  - [CircularProgressView](https://github.com/rahatarmanahmed/CircularProgressView) - A polished and flexible CircleProgressView, fully customizable with animations.
 
 ## Images
-MainActivity : List
-<img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/1.png" width="24%"/>
-MainActivity : Grid 
-<img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/2.png" width="24%"/>
-DetailActivity 
-<img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/3.png" width="24%"/>
+```MainActivity : List```
+<img src="images/1.png" width="350"/>
+```MainActivity : Grid```
+<img src="images/2.png" width="350"/>
+```DetailActivity```
+<img src="images/3.png" width="350"/>
 
 ## Gif
-<img src="https://raw.githubusercontent.com/ddpatel2606/PokemonDemo/master/images/app.gif" width="24%"/>
+<img src="images/app.gif" width="350"/>
