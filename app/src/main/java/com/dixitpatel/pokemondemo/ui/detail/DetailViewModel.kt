@@ -32,7 +32,7 @@ class DetailViewModel @Inject constructor(val detailViewRepository: DetailViewRe
         @BindingAdapter("pokemon_name")
         fun TextView.setPokemonName(name: String?) {
             this.text =
-                if (name.isNullOrEmpty()) "" else "${this.context.getString(R.string.pokemon_name)} $name"
+                if (name.isNullOrEmpty()) "" else "${this.context.getString(R.string.pokemon_name_string)} $name"
         }
 
         // Bind Pokemon Height

@@ -12,7 +12,7 @@
 
     <string name="okhttp_log_level" translatable="false">BODY</string>
     <string name="cancel">Cancel</string>
-    <string name="pokemon_name">Pokemon Name:</string>
+    <string name="pokemon_name_string">Pokemon Name:</string>
     <string name="pokemon_weight">Pokemon Weight:</string>
     <string name="pokemon_height">Pokemon Height:</string>
     <string name="abilities">Abilities:</string>

@@ -1,6 +1,9 @@
 # PokemonDemo
  This is Pokemon Api demo App
  
+ - [Video on YouTube](https://www.youtube.com/watch?v=J9ErWrsnFp8) 
+ - [Download App From PlayStore](https://play.google.com/store/apps/details?id=com.dixitpatel.pokemondemo)
+ 
  - [Pokemon listing API](https://pokeapi.co/api/v2/pokemon?limit=20&offset=0)
  - [Pokemon Detail API](https://pokeapi.co/api/v2/pokemon/bulbasaur)
  - [Pokemon Image API](https://pokeres.bastionbot.org/images/pokemon/1.png)
