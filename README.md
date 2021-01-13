@@ -1,7 +1,7 @@
 # PokemonDemo
 
  - [Video on YouTube](https://www.youtube.com/watch?v=J9ErWrsnFp8) 
- - [Download Apk](images/2.png)
+ - [Download Apk](apk/app-release.apk)
  
 
 Pokemon Api Listing
