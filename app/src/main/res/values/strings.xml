@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">PokemonDemo</string>
-    <string name="double_press_exit">Press again to exit</string>
     <string name="search_lbl">Search</string>
+    <string name="double_press_exit">Press again to exit</string>
     <string name="internet_not_available">Internet is not available</string>
-    <string name="no_list_found">No Data Found</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="no_list_found">No Data Found</string>
 
     <!-- BODY : Display Body of API
          NONE : Noting will display

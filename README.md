@@ -1,7 +1,7 @@
 # PokemonDemo
 
  - [Video on YouTube](https://www.youtube.com/watch?v=J9ErWrsnFp8) 
- - [Download App From PlayStore](https://play.google.com/store/apps/details?id=com.dixitpatel.pokemondemo)
+ - [Download Apk](images/2.png)
  
 
 Pokemon Api Listing

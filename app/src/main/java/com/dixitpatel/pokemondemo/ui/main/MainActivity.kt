@@ -49,7 +49,7 @@ import javax.inject.Inject
 class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.OnRefreshListener
 {
 
-    lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by binding(R.layout.activity_main)
 
     @Inject
     lateinit var model: MainActivityViewModel
@@ -73,13 +73,12 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.toolbar.let {
             setSupportActionBar(it)
             it.title = getString(R.string.app_name)
             it.setNavigationOnClickListener {
                         onBackPressed()
-                    }
+            }
         }
 
         binding.viewModel = model

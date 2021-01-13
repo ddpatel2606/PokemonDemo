@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.dixitpatel.pokemondemo.R
 import com.dixitpatel.pokemondemo.databinding.ActivityDetailViewBinding
+import com.dixitpatel.pokemondemo.databinding.ActivityMainBinding
 import com.dixitpatel.pokemondemo.network.ApiInterface
 import com.dixitpatel.pokemondemo.network.AuthStatus
 import com.dixitpatel.pokemondemo.ui.base.BaseActivity
@@ -23,7 +24,7 @@ import javax.inject.Inject
  */
 class DetailViewActivity : BaseActivity<DetailViewModel>()
 {
-    private lateinit var binding: ActivityDetailViewBinding
+    private val binding: ActivityDetailViewBinding by binding(R.layout.activity_detail_view)
 
     companion object
     {
@@ -44,7 +45,6 @@ class DetailViewActivity : BaseActivity<DetailViewModel>()
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_view)
         supportPostponeEnterTransition()
         binding.viewModel = models
 
