@@ -1,5 +1,6 @@
 package com.dixitpatel.pokemondemo.extension
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
@@ -10,6 +11,7 @@ import com.dixitpatel.pokemondemo.R
  *  This is Extension method we can use anywhere in app.
  *   with recyclerview.recyclerViewAnimate()
  */
+@SuppressLint("NotifyDataSetChanged")
 fun RecyclerView.recyclerViewAnimate()
 {
     val context: Context = this.context

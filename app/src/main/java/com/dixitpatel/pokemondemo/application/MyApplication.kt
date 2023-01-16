@@ -36,8 +36,7 @@ open class MyApplication : DaggerApplication()
         instance = this
 
         // If the build is on debug mode from Android studio then Logcat printed otherwise not to display.
-        if (BuildConfig.DEBUG)
-        {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 

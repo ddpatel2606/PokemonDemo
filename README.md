@@ -33,7 +33,6 @@ Pokemon Api Listing
  - [HttpInterceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor) - An OkHttp interceptor which logs HTTP request and response data.
  - [Gson](https://github.com/google/gson) - A modern JSON library for Kotlin and Java.
  - [Picasso](https://github.com/square/picasso) - loading images.
- - [Picasso Palette](https://github.com/florent37/PicassoPalette) - color background palette.
  - [ShimmerView](https://github.com/facebook/shimmer-android) - Shimmer Loading View.
  - [SwipeToRefreshLayout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout) - implement swipe to refresh layout.
  - [Timber](https://github.com/JakeWharton/timber) - logging.

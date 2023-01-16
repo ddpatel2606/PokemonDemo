@@ -5,7 +5,6 @@ import com.dixitpatel.pokemondemo.R
 import com.dixitpatel.pokemondemo.constant.BASE_URL
 import com.dixitpatel.pokemondemo.constant.HTTP_REQUEST_TIMEOUT
 import com.dixitpatel.pokemondemo.network.ApiInterface
-import com.squareup.picasso.OkHttp3Downloader
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -71,13 +70,6 @@ class NetworkModule {
     @Singleton
     fun cache(file: File?): Cache {
         return Cache(file!!, 10 * 1000 * 1000) //10 MB
-    }
-
-    // Okhttp Downloader.
-    @Provides
-    @Singleton
-    fun okHttpDownloader(okHttpClient: OkHttpClient?): OkHttp3Downloader {
-        return OkHttp3Downloader(okHttpClient)
     }
 
     // Retrofit for Network call Attached with GSONConverterFactory

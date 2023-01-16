@@ -2,10 +2,8 @@ package com.dixitpatel.pokemondemo.network
 
 import com.dixitpatel.pokemondemo.model.PokemonInfo
 import com.dixitpatel.pokemondemo.model.PokemonResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 

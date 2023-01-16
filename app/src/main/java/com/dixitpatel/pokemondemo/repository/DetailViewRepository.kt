@@ -1,11 +1,9 @@
 package com.dixitpatel.pokemondemo.repository
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.dixitpatel.pokemondemo.model.PokemonInfo
 import com.dixitpatel.pokemondemo.network.APIRequestResponseHandler
 import com.dixitpatel.pokemondemo.network.ApiInterface
-import com.dixitpatel.pokemondemo.ui.detail.DetailViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

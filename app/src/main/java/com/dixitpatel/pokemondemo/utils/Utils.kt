@@ -1,16 +1,16 @@
 package com.dixitpatel.pokemondemo.utils
 
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
 import android.app.Activity
 import android.content.Context
-import android.os.IBinder
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.view.inputmethod.InputMethodManager
-import kotlin.jvm.JvmOverloads
 import android.widget.EditText
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
-import java.lang.Exception
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 
 /**
  * Common utils methods
@@ -41,6 +41,21 @@ class Utils
             if (windowToken != null) {
                 imm.hideSoftInputFromWindow(windowToken, flags)
             }
+        }
+
+        fun AppCompatImageView.loadSvg(url: String) {
+            val imageLoader = ImageLoader.Builder(this.context)
+                .components { add(SvgDecoder.Factory()) }
+                .build()
+
+            val request = ImageRequest.Builder(this.context)
+                .crossfade(true)
+                .crossfade(500)
+                .data(url)
+                .target(this)
+                .build()
+
+            imageLoader.enqueue(request)
         }
 
         @JvmOverloads

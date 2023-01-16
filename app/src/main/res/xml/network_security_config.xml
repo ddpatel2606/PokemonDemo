@@ -3,6 +3,8 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">https://pokeapi.co</domain>
         <domain includeSubdomains="true">https://pokeapi.co/api/v2/</domain>
+        <domain includeSubdomains="true">https://raw.githubusercontent.com/</domain>
+        <domain includeSubdomains="true">https://github.com/</domain>
     </domain-config>
 
     <base-config cleartextTrafficPermitted="true">

@@ -1,18 +1,17 @@
 package com.dixitpatel.pokemondemo.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.SearchView
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.core.view.ViewCompat
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +32,7 @@ import com.dixitpatel.pokemondemo.ui.detail.DetailViewActivity
 import com.dixitpatel.pokemondemo.utils.Alerts
 import com.dixitpatel.pokemondemo.utils.CommonAdapter
 import com.dixitpatel.pokemondemo.utils.Utils
-import com.github.florent37.picassopalette.PicassoPalette
-import com.squareup.picasso.Picasso
+import com.dixitpatel.pokemondemo.utils.Utils.Companion.loadSvg
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -46,8 +44,7 @@ import javax.inject.Inject
 /**
  *  Main Activity : Pokemon Listing Activity
  */
-class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.OnRefreshListener
-{
+class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.OnRefreshListener {
 
     private val binding: ActivityMainBinding by binding(R.layout.activity_main)
 
@@ -55,7 +52,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
     lateinit var model: MainActivityViewModel
 
     @Inject
-    lateinit var apiInterface : ApiInterface
+    lateinit var apiInterface: ApiInterface
 
     override fun getViewModel(): MainActivityViewModel {
         return model
@@ -73,11 +70,11 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.toolbar.let {
-            setSupportActionBar(it)
-            it.title = getString(R.string.app_name)
-            it.setNavigationOnClickListener {
-                        onBackPressed()
+        binding.toolbar.run {
+            setSupportActionBar(this)
+            this.title = getString(R.string.app_name)
+            this.setNavigationOnClickListener {
+                onManualBackPressed()
             }
         }
 
@@ -90,109 +87,109 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
             progressBarColor = ContextCompat.getColor(this@MainActivity, R.color.color_primary)
             progressBarWidth = 4F
             backgroundProgressBarWidth = 4F
-            backgroundProgressBarColor = ContextCompat.getColor(this@MainActivity, R.color.transparent)
+            backgroundProgressBarColor =
+                ContextCompat.getColor(this@MainActivity, R.color.transparent)
         }
 
         registerObserver()
         fetchPokemonList()
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                onManualBackPressed()
+            }
+
+        })
     }
 
 
-
     // Register Listing observer
-    private fun registerObserver()
-    {
-        model.mainViewRepository.pokemonApiResult().observe(
-            this, androidx.lifecycle.Observer
-            { result ->
+    private fun registerObserver() {
+        model.mainViewRepository.pokemonApiResult().observe(this) { result ->
+            when (result.status) {
+                AuthStatus.LOADING -> {
 
-                when (result.status) {
-                    AuthStatus.LOADING -> {
+                    if (!isLoadMore) {
+                        binding.shimmerLayout.showShimmer(true)
+                        binding.shimmerLayout.visibility = View.VISIBLE
+                    }
+                    binding.tvNoResultTxt.visibility = View.GONE
+                }
+                AuthStatus.ERROR -> {
 
-                        if (!isLoadMore) {
-                            binding.shimmerLayout.showShimmer(true)
-                            binding.shimmerLayout.visibility = View.VISIBLE
+                    isRefresh = false
+                    Alerts.showSnackBar(this, result.message)
+                    binding.shimmerLayout.hideShimmer()
+                    binding.shimmerLayout.visibility = View.GONE
+                }
+                AuthStatus.SUCCESS -> {
+
+                    isRefresh = false
+
+                    binding.shimmerLayout.hideShimmer()
+                    binding.shimmerLayout.visibility = View.GONE
+
+                    if (!result.data?.results.isNullOrEmpty()) {
+
+                        if (!result.data?.next.isNullOrEmpty()) {
+                            isNextPage = true
+                            offset += PAGING_SIZE
+                        } else {
+                            isNextPage = false
                         }
-                        binding.tvNoResultTxt.visibility = View.GONE
-                    }
-                    AuthStatus.ERROR -> {
 
-                        isRefresh = false
-                        Alerts.showSnackBar(this, result.message)
-                        binding.shimmerLayout.hideShimmer()
-                        binding.shimmerLayout.visibility = View.GONE
-                    }
-                    AuthStatus.SUCCESS -> {
+                        Timber.e("Timber : offset $offset")
 
-                        isRefresh = false
+                        val arrData: ArrayList<Pokemon?> = result.data!!.results
 
-                            binding.shimmerLayout.hideShimmer()
-                            binding.shimmerLayout.visibility = View.GONE
-
-                        if (result.data?.results?.isNotEmpty()!!) {
-
-                            if (result.data.next != null) {
-                                isNextPage = true
-                                offset += PAGING_SIZE
+                        if (isLoadMore) {
+                            mAdapter?.stopLoadMore(arrData)
+                        } else {
+                            if (isRefresh) {
+                                if (arrData.size > 0) {
+                                    binding.tvNoResultTxt.visibility = View.INVISIBLE
+                                    binding.myRecyclerView.visibility = View.VISIBLE
+                                    setAdapter(arrData)
+                                }
+                                onItemsLoadComplete()
                             } else {
-                                isNextPage = false
-                            }
-
-                            Timber.e("Timber : offset $offset")
-
-                            val arrData: ArrayList<Pokemon?> = result.data.results
-
-                            if (isLoadMore) {
-                                mAdapter?.stopLoadMore(arrData)
-                            } else {
-                                if (isRefresh) {
-                                    if (arrData.size > 0) {
-                                        binding.tvNoResultTxt.visibility = View.INVISIBLE
-                                        binding.myRecyclerView.visibility = View.VISIBLE
-                                        setAdapter(arrData)
-                                    }
-                                    onItemsLoadComplete()
+                                if (arrData.size > 0) {
+                                    binding.myRecyclerView.visibility = View.VISIBLE
+                                    setAdapter(arrData)
                                 } else {
-                                    if (arrData.size > 0) {
-                                        binding.myRecyclerView.visibility = View.VISIBLE
-                                        setAdapter(arrData)
-                                    } else {
-                                        if (isRefresh) {
-                                            onItemsLoadComplete()
-                                        }
-                                        binding.myRecyclerView.visibility = View.GONE
-                                        binding.tvNoResultTxt.visibility = View.VISIBLE
+                                    if (isRefresh) {
+                                        onItemsLoadComplete()
                                     }
+                                    binding.myRecyclerView.visibility = View.GONE
+                                    binding.tvNoResultTxt.visibility = View.VISIBLE
                                 }
                             }
-                            mAdapter?.setMoreDataAvailable(isNextPage)
+                        }
+                        mAdapter?.setMoreDataAvailable(isNextPage)
 
-                        } else {
-                            binding.tvNoResultTxt.visibility = View.VISIBLE
-                            binding.myRecyclerView.visibility = View.GONE
-                        }
-                        }
+                    } else {
+                        binding.tvNoResultTxt.visibility = View.VISIBLE
+                        binding.myRecyclerView.visibility = View.GONE
+                    }
                 }
-            })
+            }
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener(this)
     }
 
     // fetch Pokemon Listing data
-    private fun fetchPokemonList()
-    {
-        if(Utils.isNetworkAvailable(this))
-        {
-            apiInterface.let { model.mainViewRepository.pokemonApiCall(offset, apiInterface) }
+    private fun fetchPokemonList() {
+        if (Utils.isNetworkAvailable(this)) {
+            model.mainViewRepository.pokemonApiCall(offset, apiInterface)
         } else {
             Alerts.showSnackBar(this, getString(R.string.internet_not_available))
         }
     }
 
-    override fun onBackPressed() {
+    fun onManualBackPressed() {
         if (backPressedTime + 2500 > System.currentTimeMillis()) {
-            super.onBackPressed()
+            this@MainActivity.finish()
             ActivityCompat.finishAffinity(this)
         } else {
             Alerts.showSnackBar(
@@ -214,7 +211,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
         return when (item.itemId) {
             R.id.action_list_grid -> {
 
-                if(Preferences.getPreferenceInt(PrefEntity.IS_LIST_VIEW) == 0) {
+                if (Preferences.getPreferenceInt(PrefEntity.IS_LIST_VIEW) == 0) {
 
                     binding.myRecyclerView.layoutManager = GridLayoutManager(
                         this, 2, RecyclerView.VERTICAL, false
@@ -222,9 +219,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
                     item.setIcon(R.drawable.ic_view_list_24)
                     Preferences.setPreferenceInt(PrefEntity.IS_LIST_VIEW, 1)
                     binding.myRecyclerView.recyclerViewAnimate()
-                }
-                else
-                {
+                } else {
                     binding.myRecyclerView.layoutManager = LinearLayoutManager(
                         this, RecyclerView.VERTICAL, false
                     )
@@ -240,6 +235,7 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
     }
 
     // onRefresh call when swipe to refresh called.
+    @SuppressLint("NotifyDataSetChanged")
     override fun onRefresh() {
         try {
             offset = 0
@@ -267,7 +263,6 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
     }
 
 
-
     // set Adapter
     private fun setAdapter(arrData: ArrayList<Pokemon?>) {
         mAdapter = object : CommonAdapter<Pokemon>(arrData) {
@@ -279,26 +274,25 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
             override fun onBindWithData(holder: CommonViewHolder, position: Int, item: Pokemon?) {
 
                 try {
-                    if (holder.binding is RowItemAllBinding)
-                    {
+                    if (holder.binding is RowItemAllBinding) {
                         val binding: RowItemAllBinding = holder.binding as RowItemAllBinding
 
                         binding.tvPokemonName.text = item?.name
                         binding.tvPokemonName.visibility = View.VISIBLE
 
-                        Picasso.get()
-                            .load(item?.getImageUrl())
-                            .into(binding.ivPokemonImage,
-                                PicassoPalette.with(item?.getImageUrl(), binding.ivPokemonImage)
-                                .use(PicassoPalette.Profile.VIBRANT_LIGHT)
-                                .intoBackground(binding.ivCard))
+                        item?.getImageUrl()?.let {
+                            binding.ivPokemonImage.loadSvg(it)
+                        }
 
                         binding.root.setOnClickListener {
 
                             // Detail Activity will open when click on pokemon Item
                             val intent = Intent(this@MainActivity, DetailViewActivity::class.java)
 
-                            ViewCompat.setTransitionName((holder.binding as RowItemAllBinding).ivPokemonImage, item?.url)
+                            ViewCompat.setTransitionName(
+                                (holder.binding as RowItemAllBinding).ivPokemonImage,
+                                item?.url
+                            )
 
                             intent.putExtra(
                                 DetailViewActivity.EXTRA_IMAGE_TRANSITION_NAME,
@@ -312,10 +306,11 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
                                     (holder.binding as RowItemAllBinding).ivPokemonImage
                                 )
                             )
-                            val options: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                                this@MainActivity,
-                                pair1
-                            )
+                            val options: ActivityOptionsCompat =
+                                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                    this@MainActivity,
+                                    pair1
+                                )
                             intent.putExtra(
                                 DetailViewActivity.SELECTION_TITLE,
                                 item?.name
@@ -325,7 +320,6 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
                                 item?.getImageUrl()
                             )
                             startActivity(intent, options.toBundle())
-
 
                         }
                     } else {
@@ -338,14 +332,12 @@ class MainActivity : BaseActivity<MainActivityViewModel?>(), SwipeRefreshLayout.
             }
         }
 
-        if(Preferences.getPreferenceInt(PrefEntity.IS_LIST_VIEW) == 0) {
+        if (Preferences.getPreferenceInt(PrefEntity.IS_LIST_VIEW) == 0) {
 
             binding.myRecyclerView.layoutManager = LinearLayoutManager(
                 this, RecyclerView.VERTICAL, false
             )
-        }
-        else
-        {
+        } else {
             binding.myRecyclerView.layoutManager = GridLayoutManager(
                 this, 2, RecyclerView.VERTICAL, false
             )

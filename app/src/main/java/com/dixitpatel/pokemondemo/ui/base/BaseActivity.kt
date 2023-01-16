@@ -1,11 +1,7 @@
 package com.dixitpatel.pokemondemo.ui.base
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.annotation.LayoutRes
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityOptionsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
@@ -22,7 +18,7 @@ abstract class BaseActivity<out T : ViewModel?> : DaggerAppCompatActivity() {
 
     protected inline fun <reified T : ViewDataBinding> binding(
             @LayoutRes resId: Int
-    ): Lazy<T> = lazy { DataBindingUtil.setContentView<T>(this, resId) }
+    ): Lazy<T> = lazy { DataBindingUtil.setContentView(this, resId) }
 
     /**
      * @return view model instance
